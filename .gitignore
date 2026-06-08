@@ -1,0 +1,10 @@
+devops-infinity-key
+devops-infinity-key.pub
+.terraform
+.terraform.lock.hcl
+terraform.tfstate
+terraform.tfstate.backup
+*.tfvars
+.env
+__pycache__
+*.pyc
