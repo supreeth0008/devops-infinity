@@ -9,14 +9,14 @@ def home():
     return render_template(
         'index.html',
         hostname=socket.gethostname(),
-        version=os.environ.get('APP_VERSION', '1.0.0')
+        version=os.environ.get('APP_VERSION', '2.0.0')
     )
 
 @app.route('/health')
 def health():
     return {
         'status': 'healthy',
-        'version': os.environ.get('APP_VERSION', '1.0.0')
+        'version': os.environ.get('APP_VERSION', '2.0.0')
     }, 200
 
 if __name__ == '__main__':
