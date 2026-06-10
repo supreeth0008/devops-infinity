@@ -22,7 +22,7 @@ spec:
         runAsUser: 1000
       containers:
         - name: devops-infinity
-          image: 499290259342.dkr.ecr.ap-south-1.amazonaws.com/devops-infinity:stable
+          image: 499290259342.dkr.ecr.ap-south-1.amazonaws.com/devops-infinity:latest
           ports:
             - containerPort: 5000
           env:
