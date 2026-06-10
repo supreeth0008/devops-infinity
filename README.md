@@ -95,3 +95,39 @@ Application deployed to Civo Kubernetes cluster with auto-scaling, monitored via
 | 2 | Complete | Kubernetes, Prometheus, Grafana Cloud, HPA |
 | 3 | Upcoming | ArgoCD, DevSecOps, Canary deployments |
 | 4 | Upcoming | Tracing, Chaos Engineering, SRE, Vault |
+
+## Phase 3 - Advanced
+
+### Overview
+
+GitOps with ArgoCD, full DevSecOps pipeline with SonarCloud and Trivy scanning, and canary deployments with Argo Rollouts.
+
+### Stack
+
+| Component | Technology |
+|---|---|
+| GitOps | ArgoCD v3.4.3 |
+| Code Quality | SonarCloud |
+| Container Security | Trivy |
+| Canary Deployments | Argo Rollouts v1.9.0 |
+| Deployment Strategy | Canary 20% - 50% - 100% |
+
+### CI/CD Pipeline Steps
+
+1. SonarCloud scans source code for bugs and security issues
+2. Docker image built
+3. Trivy scans image for CVEs (CRITICAL and HIGH)
+4. Image pushed to AWS ECR
+5. Deployed to AWS EC2
+6. ArgoCD detects Git change and syncs to Kubernetes
+7. Argo Rollouts executes canary: 20% - 30s - 50% - 30s - 100%
+8. Health verified
+
+### Roadmap
+
+| Phase | Status | Description |
+|---|---|---|
+| 1 | Complete | Docker, Terraform, GitHub Actions, AWS |
+| 2 | Complete | Kubernetes, Prometheus, Grafana Cloud, HPA |
+| 3 | Complete | ArgoCD, DevSecOps, Canary deployments |
+| 4 | Upcoming | Tracing, Chaos Engineering, SRE, Vault |
