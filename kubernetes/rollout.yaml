@@ -1,0 +1,62 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: devops-infinity
+  namespace: devops-infinity
+  labels:
+    app: devops-infinity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: devops-infinity
+  template:
+    metadata:
+      labels:
+        app: devops-infinity
+    spec:
+      imagePullSecrets:
+        - name: ecr-secret
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+      containers:
+        - name: devops-infinity
+          image: 499290259342.dkr.ecr.ap-south-1.amazonaws.com/devops-infinity:latest
+          ports:
+            - containerPort: 5000
+          env:
+            - name: APP_VERSION
+              value: "2.0.0"
+          resources:
+            requests:
+              memory: 64Mi
+              cpu: 50m
+            limits:
+              memory: 128Mi
+              cpu: 100m
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 15
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {duration: 30s}
+        - setWeight: 50
+        - pause: {duration: 30s}
+        - setWeight: 100
