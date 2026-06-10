@@ -47,3 +47,51 @@ A production-grade DevOps project built progressively from a basic CI/CD pipelin
 | 2 | Upcoming | Kubernetes, Prometheus, Grafana, Loki |
 | 3 | Upcoming | ArgoCD, DevSecOps, Canary deployments |
 | 4 | Upcoming | Tracing, Chaos Engineering, SRE, Vault |
+
+## Phase 2 - Intermediate
+
+### Overview
+
+Application deployed to Civo Kubernetes cluster with auto-scaling, monitored via Prometheus remote write to Grafana Cloud.
+
+### Stack
+
+| Component | Technology |
+|---|---|
+| Container Orchestration | Kubernetes (Civo K3s) |
+| Monitoring | Prometheus + Grafana Cloud |
+| Auto-scaling | Horizontal Pod Autoscaler |
+| Load Balancer | Civo Cloud LoadBalancer |
+| Metrics Storage | Grafana Cloud (free tier) |
+
+### Kubernetes Resources
+
+- Deployment with 2 replicas and resource limits
+- LoadBalancer service exposing port 80
+- HPA scaling from 2 to 5 pods at 70% CPU
+- ECR image pull secret for private registry access
+- Liveness and readiness probes on /health endpoint
+
+### Monitoring
+
+- Prometheus scrapes all cluster metrics every 15 seconds
+- Remote write ships metrics to Grafana Cloud
+- Three dashboards imported: K8S Dashboard, Node Overview, Pods Overview
+- Metrics retained for 24 hours locally
+
+### Live Endpoints
+
+| Endpoint | URL |
+|---|---|
+| Application | http://74.220.21.89 |
+| Health Check | http://74.220.21.89/health |
+| Grafana Cloud | https://savvycrocus1079.grafana.net |
+
+### Roadmap
+
+| Phase | Status | Description |
+|---|---|---|
+| 1 | Complete | Docker, Terraform, GitHub Actions, AWS |
+| 2 | Complete | Kubernetes, Prometheus, Grafana Cloud, HPA |
+| 3 | Upcoming | ArgoCD, DevSecOps, Canary deployments |
+| 4 | Upcoming | Tracing, Chaos Engineering, SRE, Vault |
