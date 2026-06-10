@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: devops-infinity
+  namespace: devops-infinity
+  labels:
+    app: devops-infinity
+spec:
+  type: LoadBalancer
+  selector:
+    app: devops-infinity
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 5000
