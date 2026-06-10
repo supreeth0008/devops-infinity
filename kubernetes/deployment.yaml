@@ -17,9 +17,12 @@ spec:
     spec:
       imagePullSecrets:
         - name: ecr-secret
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
       containers:
         - name: devops-infinity
-          image: 499290259342.dkr.ecr.ap-south-1.amazonaws.com/devops-infinity:latest
+          image: 499290259342.dkr.ecr.ap-south-1.amazonaws.com/devops-infinity:stable
           ports:
             - containerPort: 5000
           env:
@@ -44,3 +47,9 @@ spec:
               port: 5000
             initialDelaySeconds: 5
             periodSeconds: 10
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: false
+            capabilities:
+              drop:
+                - ALL
